@@ -3,7 +3,7 @@
 # 11/15/2024
 # Lab 09
 # Lab Section: 10
-# Sources, people worked with, help given to:
+# Sources, people worked with, help given to: I used Chat GPT to fix my code after I had made it and it was able to fix part of my code so that it would run. It added the if name == main to make it work. 
 # Your
 # Comments
 # Here
@@ -120,19 +120,19 @@ class Pizzeria:
         self.orders += 1
         print(f"Order placed! Pizza size: {pizza.get_size()} inches, Sauce: {pizza.get_sauce()}, Toppings: {', '.join(pizza.get_toppings())}")
 
-     def get_price(self, pizza_price):
-        pizza = self.pizzas[pizza_price]
+    def get_price(self, pizza_index):
+        pizza = self.pizzas[pizza_index]
         size_price = pizza.get_size() * self.price_per_inch
         topping_price = pizza.get_toppings_count() * self.price_per_topping
         return size_price + topping_price
     
-    def get_receipt(self, pizza_price):
-        pizza = self.pizzas[pizza_price]
+    def get_receipt(self, pizza_index):
+        pizza = self.pizzas[pizza_index]
         size_price = pizza.get_size() * self.price_per_inch
         topping_price = pizza.get_toppings_count() * self.price_per_topping
         total_price = size_price + topping_price
         
-        receipt = f"Receipt for Pizza Order {pizza_price + 1}:\n"
+        receipt = f"Receipt for Pizza Order {pizza_index + 1}:\n"
         receipt += f"Sauce: {pizza.get_sauce()}\n"
         receipt += f"Size: {pizza.get_size()} inches\n"
         receipt += f"Toppings: {', '.join(pizza.get_toppings())}\n"
@@ -142,14 +142,8 @@ class Pizzeria:
         
         return receipt
     def get_number_of_orders(self):
-        return self.orders
-
-if __name__ == "__main__":
-    pizzeria = Pizzeria()
-    pizzeria.place_order()
-    print(pizzeria.get_receipt(0))
-    print(f"Number of orders placed: {pizzeria.get_number_of_orders()}")
-    
+        return self.orders    
+        
 # - Declare your pizzeria object.
 # - Enter a while loop to ask if the user wants to order a pizza.
 # - Exit on the word `exit`.
@@ -157,6 +151,25 @@ if __name__ == "__main__":
 # - After the order is placed, call the getReceipt() method.
 # - Repeat the loop as needed.
 # - AFTER the loop, print how many orders were placed.
+
+
+if __name__=="__main__":
+    pizzeria=Pizzeria()
+
+    while True:
+        user_input=input("Would you like to order a pizza? Type exit to quit.")
+        if user_input.lower()=="exit":
+            break
+    
+        pizzeria.place_order()
+
+        if pizzeria.orders>0:
+            last_order_index=pizzeria.orders - 1
+            print(pizzeria.get_receipt(last_order_index))
+        else:
+            print("NO orders placed yet!")
+    print(f"Total number of orders placed:{pizzeria.get_number_of_orders()}")
+
 
 
 # Example output:
